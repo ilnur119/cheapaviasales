@@ -1,6 +1,6 @@
 package org.teamyeah.cheapaviasales.db.entity;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 /**
  * Объектное представление сущности "Цена".
@@ -25,7 +25,7 @@ public class Price {
 	/**
 	 * Время запроса, когда была получена данная цена
 	 */
-	private Calendar priceTime;
+	private LocalDateTime priceTime;
 	
 	/**
 	 * Количество пересадок
@@ -78,11 +78,11 @@ public class Price {
 		this.price = price;
 	}
 
-	public Calendar getPriceTime() {
+	public LocalDateTime getPriceTime() {
 		return priceTime;
 	}
 
-	public void setPriceTime(Calendar priceTime) {
+	public void setPriceTime(LocalDateTime priceTime) {
 		this.priceTime = priceTime;
 	}
 

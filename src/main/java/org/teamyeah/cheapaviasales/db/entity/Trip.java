@@ -1,6 +1,6 @@
 package org.teamyeah.cheapaviasales.db.entity;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 /**
  * Объектное представление сущности "Перелёт".
@@ -15,12 +15,12 @@ public class Trip {
 	/**
 	 * Дата отправления
 	 */
-	private Calendar departDate;
+	private LocalDate departDate;
 	
 	/**
 	 * Дата обратного вылета
 	 */
-	private Calendar returnDate;
+	private LocalDate returnDate;
 	
 	/**
 	 * Пункт отправления
@@ -75,19 +75,19 @@ public class Trip {
 		this.id = id;
 	}
 
-	public Calendar getDepartDate() {
+	public LocalDate getDepartDate() {
 		return departDate;
 	}
 
-	public void setDepartDate(Calendar departDate) {
+	public void setDepartDate(LocalDate departDate) {
 		this.departDate = departDate;
 	}
 
-	public Calendar getReturnDate() {
+	public LocalDate getReturnDate() {
 		return returnDate;
 	}
 
-	public void setReturnDate(Calendar returnDate) {
+	public void setReturnDate(LocalDate returnDate) {
 		this.returnDate = returnDate;
 	}
 
