@@ -40,12 +40,17 @@ public class Trip {
 	/**
 	 * Отслеживать ли по относительному изменению цены
 	 */
-	private boolean changePriceChecking;
+	private boolean diffPriceChecking;
 
 	/**
 	 * Заданная цена, о достижении которой нужно уведомлять 
 	 */
 	private Integer targetPrice;
+	
+	/**
+	 * Заданное изменение цены, о котором нужно уведомлять 
+	 */
+	private Integer diffPrice;
 	
 	/**
 	 * Последняя цена, о которой уведомлялся пользователь
@@ -110,12 +115,12 @@ public class Trip {
 		this.targetPriceChecking = targetPriceChecking;
 	}
 
-	public boolean isChangePriceChecking() {
-		return changePriceChecking;
+	public boolean isDiffPriceChecking() {
+		return diffPriceChecking;
 	}
 
-	public void setChangePriceChecking(boolean changePriceChecking) {
-		this.changePriceChecking = changePriceChecking;
+	public void setDiffPriceChecking(boolean diffPriceChecking) {
+		this.diffPriceChecking = diffPriceChecking;
 	}
 
 	public Integer getTargetPrice() {
@@ -124,6 +129,14 @@ public class Trip {
 
 	public void setTargetPrice(Integer targetPrice) {
 		this.targetPrice = targetPrice;
+	}
+
+	public Integer getDiffPrice() {
+		return diffPrice;
+	}
+
+	public void setDiffPrice(Integer diffPrice) {
+		this.diffPrice = diffPrice;
 	}
 
 	public Integer getLastReportedPrice() {
