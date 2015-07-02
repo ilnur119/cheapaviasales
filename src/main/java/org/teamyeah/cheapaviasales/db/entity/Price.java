@@ -45,12 +45,12 @@ public class Price {
 	/**
 	 * Дата и время вылета
 	 */
-	private String departureAt;
+	private LocalDateTime departureAt;
 	
 	/**
 	 * Дата и время обратного вылета
 	 */
-	private String returnAt;
+	private LocalDateTime returnAt;
 	
 	
 
@@ -110,19 +110,19 @@ public class Price {
 		this.flightNumber = flightNumber;
 	}
 
-	public String getDepartureAt() {
+	public LocalDateTime getDepartureAt() {
 		return departureAt;
 	}
 
-	public void setDepartureAt(String departureAt) {
+	public void setDepartureAt(LocalDateTime departureAt) {
 		this.departureAt = departureAt;
 	}
 
-	public String getReturnAt() {
+	public LocalDateTime getReturnAt() {
 		return returnAt;
 	}
 
-	public void setReturnAt(String returnAt) {
+	public void setReturnAt(LocalDateTime returnAt) {
 		this.returnAt = returnAt;
 	}
 
