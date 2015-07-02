@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -15,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +23,7 @@ import java.util.TimerTask;
 public class App extends Application {
 
     // application stage is stored so that it can be shown and hidden based on system tray icon operations.
-    private Stage stage;
+    private Stage tripListWindow;
 
     // a timer allowing the tray icon to provide a periodic notification event.
     private Timer notificationTimer = new Timer();
@@ -36,16 +36,32 @@ public class App extends Application {
     }
 
     // sets up the javafx application.
-    // a tray icon is setup for the icon, but the main stage remains invisible until the user
+    // a tray icon is setup for the icon, but the main tripListWindow remains invisible until the user
     // interacts with the tray icon.
     @Override
     public void start(Stage stage) {
 
-        this.stage = stage;
         Platform.setImplicitExit(false);
         javax.swing.SwingUtilities.invokeLater(this::setTrayIcon);
 
-        Scene scene = new Scene(new AnchorPane(), 550, 500);
+        setupTripListWindow(stage);
+    }
+
+    private void setupTripListWindow(Stage stage) {
+
+        this.tripListWindow = stage;
+
+        TripListModel model = new TripListModel();
+        model.setTripModels(FXCollections.observableArrayList(
+                new TripModel("Ульяновск", "Москва", LocalDate.now(), LocalDate.now().plusDays(1), 5678),
+                new TripModel("Москва", "Берлин", LocalDate.now(), LocalDate.now().plusDays(2), 16723),
+                new TripModel("Москва", "Берлин", LocalDate.now(), LocalDate.now().plusDays(2), 12723)
+        ));
+
+        TripList root = new TripList();
+        root.setTrips(model.getTripModels());
+
+        Scene scene = new Scene(root, 550, 500);
 
         stage.setTitle("Рейсы");
         stage.getIcons().addAll(new Image("/images/icon128.png"), new Image("/images/icon16.png"));
@@ -55,7 +71,6 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
     /**
      * Sets up a system tray icon for the application.
@@ -77,9 +92,9 @@ public class App extends Application {
             java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
 
             ActionListener showAction = event -> Platform.runLater(() -> {
-                if (stage != null) {
-                    stage.show();
-                    stage.toFront();
+                if (tripListWindow != null) {
+                    tripListWindow.show();
+                    tripListWindow.toFront();
                 }
             });
 
@@ -87,7 +102,7 @@ public class App extends Application {
             trayIcon.addActionListener(showAction);
 
             // if the user selects the default menu item (which includes the app name),
-            // show the main app stage.
+            // show the main app tripListWindow.
             java.awt.MenuItem openItem = new java.awt.MenuItem("Show");
             openItem.addActionListener(showAction);
 
@@ -134,60 +149,5 @@ public class App extends Application {
             System.out.println("Unable to init system tray");
             e.printStackTrace();
         }
-    }
-
-    private static class NoSelectionModel<T> extends MultipleSelectionModel<T> {
-        @Override
-        public ObservableList<Integer> getSelectedIndices() {
-            return FXCollections.emptyObservableList();
-        }
-
-        @Override
-        public ObservableList<T> getSelectedItems() {
-            return FXCollections.emptyObservableList();
-        }
-
-        @Override
-        public void selectIndices(int index, int... indices) { }
-
-        @Override
-        public void selectAll() { }
-
-        @Override
-        public void selectFirst() { }
-
-        @Override
-        public void selectLast() { }
-
-        @Override
-        public void clearAndSelect(int index) { }
-
-        @Override
-        public void select(int index) { }
-
-        @Override
-        public void select(Object obj) { }
-
-        @Override
-        public void clearSelection(int index) { }
-
-        @Override
-        public void clearSelection() { }
-
-        @Override
-        public boolean isSelected(int index) {
-            return false;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return true;
-        }
-
-        @Override
-        public void selectPrevious() { }
-
-        @Override
-        public void selectNext() { }
     }
 }
